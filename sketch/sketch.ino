@@ -1,13 +1,19 @@
 #include <EasyHID.h>
 
 void setup() {
-  delay(30000);
+//  delay(30000);
   Serial.begin(9600);
   pinMode(13, OUTPUT);
   HID.begin();
 }
 
 void loop() {
+  if (!HID.isConnected()) {
+    delay(500);
+    Serial.println("Trying to connect");
+    HID.begin();
+    HID.tick();
+  }
   keyboardF1();
   connectedBlink();
   HID.tick();
